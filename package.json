@@ -1,35 +1,40 @@
 {
-  "name": "generic-type-orm",
-  "version": "0.0.1",
-  "description": "Testing using generics with type orm",
-  "main": "src/index.ts",
-  "scripts": {
-    "test": "vitest"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pdonnelly3/generic-type-orm.git"
-  },
-  "keywords": [
-    "typeORM",
-    "type",
-    "orm",
-    "typescript"
-  ],
-  "author": "Patrick Donnelly",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/pdonnelly3/generic-type-orm/issues"
-  },
-  "homepage": "https://github.com/pdonnelly3/generic-type-orm#readme",
-  "devDependencies": {
-    "@types/node": "^22.13.11",
-    "typescript": "^5.8.2",
-    "vitest": "^3.0.9"
-  },
-  "dependencies": {
-    "reflect-metadata": "^0.2.2",
-    "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.21"
-  }
+   "name": "generic-type-orm",
+   "version": "0.0.1",
+   "description": "Testing using generics with type orm",
+   "main": "dist/index.ts",
+   "types": "dist/index.d.ts",
+   "scripts": {
+      "test": "vitest",
+      "build": "tsc",
+      "start": "ts-node src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/pdonnelly3/generic-type-orm.git"
+   },
+   "keywords": [
+      "typeORM",
+      "type",
+      "orm",
+      "typescript"
+   ],
+   "author": "Patrick Donnelly",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/pdonnelly3/generic-type-orm/issues"
+   },
+   "homepage": "https://github.com/pdonnelly3/generic-type-orm#readme",
+   "devDependencies": {
+      "@types/node": "^16.11.10",
+      "typescript": "4.5.2",
+      "vitest": "^3.0.9",
+      "ts-node": "10.9.1"
+   },
+   "dependencies": {
+      "reflect-metadata": "^0.1.13",
+      "sqlite3": "^5.0.2",
+      "typeorm": "0.3.21"
+   }
 }
