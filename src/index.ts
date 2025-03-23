@@ -1,20 +1,30 @@
 import { AppDataSource } from "./data-source"
-import { User } from "./entity/User"
+import { OperationOne, OperationTwo, } from "./entity/Operation"
 
 AppDataSource.initialize().then(async () => {
 
     console.log("Inserting a new user into the database...")
-    const user = new User()
-    user.firstName = "Timber"
-    user.lastName = "Saw"
-    user.age = 25
-    await AppDataSource.manager.save(user)
-    console.log("Saved a new user with id: " + user.id)
+    const opOne = new OperationOne()
+    opOne.status = 1;
+    opOne.state = { value: 1 };
 
-    console.log("Loading users from the database...")
-    const users = await AppDataSource.manager.find(User)
-    console.log("Loaded users: ", users)
+    const opTwo = new OperationTwo()
+    opTwo.state = {
+        date: new Date()
+    };
+    opTwo.status = 2;
 
-    console.log("Here you can setup and run express / fastify / any other framework.")
+    await AppDataSource.manager.save(opOne)
+    console.log("Saved a new operation with id: " + opOne.id)
+
+    await AppDataSource.manager.save(opTwo)
+    console.log("Saved a new operation with id: " + opTwo.id)
+
+    console.log("Loading operations from the database...")
+    const operations = await AppDataSource.manager.find(OperationOne)
+    console.log("Loaded operation one: ", operations)
+
+    const operationsTwo = await AppDataSource.manager.find(OperationOne)
+    console.log("Loaded operation two: ", operationsTwo)
 
 }).catch(error => console.log(error))

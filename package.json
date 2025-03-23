@@ -2,8 +2,8 @@
    "name": "generic-type-orm",
    "version": "0.0.1",
    "description": "Testing using generics with type orm",
-   "main": "dist/index.ts",
-   "types": "dist/index.d.ts",
+   "main": "build/index.ts",
+   "types": "build/index.d.ts",
    "scripts": {
       "test": "vitest",
       "build": "tsc",
