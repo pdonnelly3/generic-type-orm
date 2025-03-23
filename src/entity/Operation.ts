@@ -10,7 +10,7 @@ export abstract class BaseOperation<State> {
     abstract state: State
 }
 
-class OperationOneState {
+export class OperationOneState {
     @Column("int")
     value: number;
 }
@@ -22,7 +22,7 @@ export class OperationOne extends BaseOperation<OperationOneState> {
 }
 
 
-class OperationTwoState {
+export class OperationTwoState {
     @Column("date")
     date: Date;
 }
