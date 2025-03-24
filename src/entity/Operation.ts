@@ -1,4 +1,28 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, Index, getMetadataArgsStorage, EntityOptions, } from "typeorm"
+
+function OperationTable(
+    name?: string,
+    maybeOptions?: EntityOptions
+) {
+    return function (
+        target
+    ) {
+        // setup Entity
+        Entity(name, maybeOptions)(target);
+
+        const metadata = getMetadataArgsStorage();
+        const embededds = metadata.filterEmbeddeds(target);
+
+        // setup Index on state fields
+        const state = embededds.find((op) => op.propertyName === 'state');
+        if (!state) {
+            throw new Error("state is there");
+        }
+        const stateColumns = metadata.filterColumns(state.type());
+        Index(stateColumns.map((i) => `state.${i.propertyName}`))(target);
+    }
+}
+
 
 export abstract class BaseOperation<State> {
     @PrimaryGeneratedColumn()
@@ -10,14 +34,13 @@ export abstract class BaseOperation<State> {
     @Column("text")
     updatedAt: Date
 
-    abstract state: State
-
     @BeforeInsert()
     updateDates() {
         console.log("updateDates")
         this.updatedAt = new Date()
     }
 
+    abstract state: State
 }
 
 export class OperationOneState {
@@ -25,23 +48,24 @@ export class OperationOneState {
     value: number;
 }
 
-@Entity()
+
+
+@OperationTable()
 export class OperationOne extends BaseOperation<OperationOneState> {
     @Column(() => OperationOneState)
     override state: OperationOneState;
 }
 
-@Entity()
+
 export class OperationTwoState {
     @Column("date")
     date: Date;
 
-    toString() {
-        return `OperationTwoState: { date: ${this.date} }`;
-    }
+    @Column("text")
+    other?: string;
 }
 
-@Entity()
+@OperationTable()
 export class OperationTwo extends BaseOperation<OperationTwoState> {
     @Column(() => OperationTwoState)
     override state: OperationTwoState;

@@ -1,13 +1,13 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
-import { OperationOne, OperationTwo, BaseOperation } from "./entity/Operation"
+import { OperationOne, OperationTwo } from "./entity/Operation"
 
 export const AppDataSource = new DataSource({
     type: "sqlite",
     database: "database.sqlite",
     synchronize: true,
-    logging: false,
-    entities: [OperationOne, OperationTwo, BaseOperation],
+    logging: "all",
+    entities: [OperationOne, OperationTwo],
     migrations: [],
     subscribers: [],
 })
