@@ -1,5 +1,6 @@
 import { AppDataSource } from "./data-source"
 import { OperationOne, OperationTwo, } from "./entity/Operation"
+import { query, queryTwo } from "./repository"
 
 AppDataSource.initialize().then(async () => {
 
@@ -24,7 +25,17 @@ AppDataSource.initialize().then(async () => {
     const operations = await AppDataSource.manager.find(OperationOne)
     console.log("Loaded operation one: ", operations)
 
-    const operationsTwo = await AppDataSource.manager.find(OperationOne)
+    const operationsTwo = await AppDataSource.manager.find(OperationTwo)
     console.log("Loaded operation two: ", operationsTwo)
+
+
+    const insertOne = await query();
+    console.log("Inserted: ", insertOne);
+    const insertTwo = await queryTwo()
+    console.log("Inserted: ", insertTwo);
+    const a = await AppDataSource.manager.find(OperationTwo)
+    for (const b of a) {
+        console.dir(b.state);
+    }
 
 }).catch(error => console.log(error))

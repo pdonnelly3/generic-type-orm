@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from "typeorm"
 
 export abstract class BaseOperation<State> {
     @PrimaryGeneratedColumn()
@@ -7,7 +7,17 @@ export abstract class BaseOperation<State> {
     @Column("int")
     status: number
 
+    @Column("text")
+    updatedAt: Date
+
     abstract state: State
+
+    @BeforeInsert()
+    updateDates() {
+        console.log("updateDates")
+        this.updatedAt = new Date()
+    }
+
 }
 
 export class OperationOneState {
@@ -21,10 +31,14 @@ export class OperationOne extends BaseOperation<OperationOneState> {
     override state: OperationOneState;
 }
 
-
+@Entity()
 export class OperationTwoState {
     @Column("date")
     date: Date;
+
+    toString() {
+        return `OperationTwoState: { date: ${this.date} }`;
+    }
 }
 
 @Entity()
