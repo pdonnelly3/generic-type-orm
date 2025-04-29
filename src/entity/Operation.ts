@@ -19,7 +19,7 @@ function OperationTable(
             throw new Error("state is there");
         }
         const stateColumns = metadata.filterColumns(state.type());
-        Index(stateColumns.map((i) => `state.${i.propertyName}`))(target);
+        Index(stateColumns.map((i) => i.propertyName !== 'other' ? `state.${i.propertyName}` : '').filter((v) => v.length))(target);
     }
 }
 
@@ -48,11 +48,9 @@ export class OperationOneState {
     value: number;
 }
 
-
-
 @OperationTable()
 export class OperationOne extends BaseOperation<OperationOneState> {
-    @Column(() => OperationOneState)
+    @Column(() => OperationOneState, {prefix: false})
     override state: OperationOneState;
 }
 
@@ -67,6 +65,6 @@ export class OperationTwoState {
 
 @OperationTable()
 export class OperationTwo extends BaseOperation<OperationTwoState> {
-    @Column(() => OperationTwoState)
+    @Column(() => OperationTwoState, {prefix: false})
     override state: OperationTwoState;
 }

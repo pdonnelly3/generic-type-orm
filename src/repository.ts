@@ -2,7 +2,7 @@
 // 1 - use query builder for inserts and some
 // 2 - use ORM for custom queries
 
-import { DataSource, DeepPartial, EntityTarget } from "typeorm";
+import { DataSource, EntityTarget } from "typeorm";
 import { BaseOperation, OperationOne, OperationOneState, OperationTwo, OperationTwoState } from "./entity/Operation";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity";
 import { AppDataSource } from "./data-source";

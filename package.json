@@ -8,7 +8,7 @@
       "test": "vitest",
       "build": "tsc",
       "start": "ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "typeorm": "typeorm-ts-node-commonjs migration:generate -d ./src/data-source.ts"
    },
    "repository": {
       "type": "git",
